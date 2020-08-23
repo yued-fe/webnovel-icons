@@ -32,7 +32,6 @@ const generateIconsIndex = () => {
   import { ComponentType, SVGAttributes } from 'react';
 
   interface Props extends SVGAttributes<SVGElement> {
-    color?: string;
     size?: string | number;
   }
 
@@ -68,7 +67,7 @@ const generateIconCode = async ({ name }) => {
   const destination = path.join(rootDir, "dist/icons", `${names.name}.js`);
   const code = fs.readFileSync(location);
   const svgCode = await processSvg(code);
-  const ComponentName = names.componentName;
+  const ComponentName = `I${names.componentName}`;
   const element = getElementCode(
     ComponentName,
     attrsToString(getAttrs(names.style), names.style),

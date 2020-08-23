@@ -6,12 +6,12 @@ const getAttrs = (style) => {
     viewBox: '0 0 24 24',
   }
   const fillAttrs = {
-    fill: 'color',
+    fill: 'currentColor',
     otherProps: '...otherProps'
   }
   const strokeAttrs = {
     fill: 'none',
-    stroke: 'color',
+    stroke: 'currentColor',
     strokeWidth: 2,
     strokeLinecap: 'round',
     strokeLinejoin: 'round',
@@ -22,31 +22,12 @@ const getAttrs = (style) => {
 
 const getElementCode = (ComponentName, attrs, svgCode) => `
   import React from 'react';
-  import PropTypes from 'prop-types';
-
-  const ${ComponentName} = (props) => {
-    const { color, size, ...otherProps } = props;
-    return (
-      <svg ${attrs}>
+  const ${ComponentName} = ({ size="24", ...otherProps }) => (
+    <svg ${attrs}>
         ${svgCode}
-      </svg>
-    )
-  };
-
-  ${ComponentName}.propTypes = {
-    color: PropTypes.string,
-    size: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-  }
-
-  ${ComponentName}.defaultProps = {
-    color: 'currentColor',
-    size: '24',
-  }
-
+    </svg>
+  );
   export default ${ComponentName}
-`
+`;
 
 module.exports = { getAttrs, getElementCode }
