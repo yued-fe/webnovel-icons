@@ -28,15 +28,9 @@
   "scripts": {
     "build": "sudo rm -rf dist/ && node bin/build.js"
   },
-  "config": {
-    "style": "fill"
-  },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.3",
     "svgo": "^1.3.0",
     "uppercamelcase": "^3.0.0"
-  },
-  "dependencies": {
-    "webnovel-icon": "^0.0.20"
   }
 }
