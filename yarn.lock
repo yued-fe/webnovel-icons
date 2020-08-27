@@ -1377,6 +1377,11 @@ vue-eslint-parser@^2.0.2:
     esquery "^1.0.0"
     lodash "^4.17.4"
 
+webnovel-icon@^0.0.20:
+  version "0.0.20"
+  resolved "https://registry.npmjs.org/webnovel-icon/-/webnovel-icon-0.0.20.tgz#941281f61cf2126f8f2dd131ffd34790f0844da9"
+  integrity sha512-8aC9YQaQd1OR2oPdvXYAq00KGYmATG7wZ+cevTzKs0n9W6wPZ4y0/jWr7AVBbXVbKmdnYuNREiNF/EbhVeyK1Q==
+
 which@^1.2.9:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/which/-/which-1.3.1.tgz#a45043d54f5805316da8d62f9f50918d3da70b0a"
