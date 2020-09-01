@@ -1,6 +1,6 @@
 {
-  "name": "webnovel-icon",
-  "version": "0.0.23",
+  "name": "webnovel-icons",
+  "version": "0.0.1",
   "description": "Icon automation workflow with Figma",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -10,7 +10,7 @@
     "es",
     "src"
   ],
-  "repository": "git@github.com:ziven27/wn-icon.git",
+  "repository": "git@github.com:yued-fe/webnovel-icons.git",
   "author": "ziven27",
   "keywords": [
     "react",
@@ -22,9 +22,9 @@
     "design"
   ],
   "bugs": {
-    "url": "https://github.com/leadream/juuust-react-icon/issues"
+    "url": "https://github.com/yued-fe/webnovel-icons/issues"
   },
-  "homepage": "https://github.com/leadream/juuust-react-icon#readme",
+  "homepage": "https://github.com/yued-fe/webnovel-icons",
   "scripts": {
     "build": "sudo rm -rf dist/ && node bin/build.js"
   },
