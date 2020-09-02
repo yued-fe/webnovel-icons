@@ -1,10 +1,11 @@
 {
   "name": "webnovel-icons",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Icon automation workflow with Figma",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "license": "MIT",
   "files": [
     "dist",
     "es",
@@ -26,16 +27,27 @@
   },
   "homepage": "https://github.com/yued-fe/webnovel-icons",
   "scripts": {
-    "generate": "sudo rm -rf dist/ && sudo rm -rf src/icons/ && node bin/build.js",
-    "build": "sudo rm -rf dist/icons && ./node_modules/.bin/babel src/icons --out-dir dist/icons"
+    "generate": "sudo rm -rf dist/ && sudo rm -rf src/dist/ && node bin/build.js",
+    "build": "./node_modules/.bin/babel src/dist --out-dir dist"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
+    ]
   },
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@babel/runtime": "^7.11.2"
   },
   "devDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "@babel/cli": "^7.11.5",
     "@babel/core": "^7.11.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "cheerio": "^1.0.0-rc.3",

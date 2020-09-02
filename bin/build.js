@@ -12,10 +12,11 @@ const rootDir = path.join(__dirname, '..');
 
 // where icons code in
 const srcDir = path.join(rootDir, 'dist');
-const iconsDir = path.join(rootDir, 'src/icons');
+const srcDistDir = path.join(rootDir, 'src/dist');
+const iconsDir = path.join(rootDir, 'src/dist/icons');
 
 // where index.js code in
-const iconFile = path.join(rootDir, 'dist', 'index.js');
+const iconFile = path.join(rootDir, 'src/dist', 'index.js');
 const iconFileD = path.join(rootDir, 'dist', 'index.d.ts');
 
 const _api = {
@@ -27,7 +28,7 @@ const _api = {
     const code = fs.readFileSync(location);
     const svgCode = await processSvg(code);
     const element = getElementCode(ComponentName, svgCode);
-    const destination = path.join(rootDir, 'src/icons', `${ComponentName}.js`);
+    const destination = path.join(rootDir, 'src/dist/icons', `${ComponentName}.js`);
     fs.writeFileSync(destination, element, 'utf-8');
     console.log('Successfully built', ComponentName);
     return ComponentName;
@@ -36,10 +37,16 @@ const _api = {
   generateIconsIndex: () => {
     if (!fs.existsSync(srcDir)) {
       fs.mkdirSync(srcDir);
-      fs.mkdirSync(iconsDir);
-    } else if (!fs.existsSync(iconsDir)) {
+    }
+    if (!fs.existsSync(srcDistDir)) {
+      fs.mkdirSync(srcDistDir);
+    }
+
+    if (!fs.existsSync(iconsDir)) {
       fs.mkdirSync(iconsDir);
     }
+
+
     const initialTypeDefinitions = `
 import { SVGAttributes } from 'react';
 type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
@@ -53,7 +60,7 @@ type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
   appendToIconsIndex: (ComponentNames = []) => {
     let exportString = '';
     let exportTypeString = '';
-    [...new Set(ComponentNames)].sort().map((ComponentName)=>{
+    [...new Set(ComponentNames)].sort().map((ComponentName) => {
       exportString += `export { default as ${ComponentName} } from './icons/${ComponentName}';\r\n`;
       exportTypeString += `export const ${ComponentName}: Icon;\n`;
     });
