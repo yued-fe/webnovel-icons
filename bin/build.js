@@ -12,7 +12,7 @@ const rootDir = path.join(__dirname, '..');
 
 // where icons code in
 const srcDir = path.join(rootDir, 'dist');
-const iconsDir = path.join(rootDir, 'dist/icons');
+const iconsDir = path.join(rootDir, 'src/icons');
 
 // where index.js code in
 const iconFile = path.join(rootDir, 'dist', 'index.js');
@@ -27,7 +27,7 @@ const _api = {
     const code = fs.readFileSync(location);
     const svgCode = await processSvg(code);
     const element = getElementCode(ComponentName, svgCode);
-    const destination = path.join(rootDir, 'dist/icons', `${ComponentName}.js`);
+    const destination = path.join(rootDir, 'src/icons', `${ComponentName}.js`);
     fs.writeFileSync(destination, element, 'utf-8');
     console.log('Successfully built', ComponentName);
     return ComponentName;
