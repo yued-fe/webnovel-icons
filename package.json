@@ -1,6 +1,6 @@
 {
   "name": "webnovel-icons",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Icon automation workflow with Figma",
   "main": "dist/index.js",
   "module": "dist/index.js",
