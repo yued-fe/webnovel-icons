@@ -1,6 +1,6 @@
 {
   "name": "webnovel-icons",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Icon automation workflow with Figma",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -28,7 +28,8 @@
   "homepage": "https://github.com/yued-fe/webnovel-icons",
   "scripts": {
     "generate": "sudo rm -rf dist/ && sudo rm -rf src/dist/ && node bin/build.js",
-    "build": "./node_modules/.bin/babel src/dist --out-dir dist"
+    "build": "./node_modules/.bin/babel src/dist --out-dir dist",
+    "all": "yarn generate && yarn build"
   },
   "babel": {
     "presets": [

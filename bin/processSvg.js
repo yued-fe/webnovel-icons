@@ -18,6 +18,7 @@ function CamelCase(str) {
 function optimize(svg) {
   const svgo = new Svgo({
     plugins: [
+      {removeViewBox: false}
       // { convertShapeToPath: false },
       // { mergePaths: false },
       // { removeAttrs: { attrs: '(fill|stroke.*)' } },
@@ -26,7 +27,7 @@ function optimize(svg) {
   });
 
   return new Promise(resolve => {
-    svgo.optimize(svg).then(({ data }) => resolve(data));
+    svgo.optimize(svg).then(({data}) => resolve(data));
   });
 }
 
@@ -37,7 +38,12 @@ function optimize(svg) {
  */
 function removeSVGElement(svg) {
   const $ = cheerio.load(svg);
-  return $('body').children().html();
+  return {
+    ele: $('body').children().html(),
+    attrs: {
+      viewBox: $('svg').attr('viewBox')
+    }
+  };
 }
 
 /**
@@ -51,7 +57,13 @@ async function processSvg(svg) {
     // because prettier thinks it's formatting JSX not HTML
     .then(svg => svg.replace(/;/g, ''))
     .then(removeSVGElement)
-    .then(svg => svg.replace(/([a-z]+)-([a-z]+)=/g, (_, a, b) => `${a}${CamelCase(b)}=`))
+    .then(({ele, attrs}) => ([
+        // 这个会把 fill-rule 转换成 fillRule  svg component 需要
+        ele.replace(/([a-z]+)-([a-z]+)=/g, (_, a, b) => `${a}${CamelCase(b)}=`),
+        ele,
+        attrs
+      ]
+    ));
   return optimized;
 }
 

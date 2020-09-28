@@ -28,15 +28,15 @@ const _api = {
     // console.log(names);
     const location = path.join(rootDir, 'src/svg', `${name}.svg`);
     const code = fs.readFileSync(location);
-    const svgCode = await processSvg(code);
+    const [svgComponent, svgCode, attrs] = await processSvg(code);
 
     // svg component
-    const element = getComponent(ComponentName, svgCode);
+    const element = getComponent(ComponentName, svgComponent, attrs);
     const destination = path.join(iconsDir, `${ComponentName}.js`);
     fs.writeFileSync(destination, element, 'utf-8');
 
     // svg nunjucks
-    const eleNjks = getNunjucks(ComponentName, svgCode);
+    const eleNjks = getNunjucks(ComponentName, svgCode, attrs);
     fs.appendFileSync(htmlNunjucks, eleNjks, 'utf-8');
 
     console.log('Successfully built', ComponentName);
