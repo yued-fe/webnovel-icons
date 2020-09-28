@@ -4,7 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const upperCamelCase = require('uppercamelcase');
 const processSvg = require('./processSvg');
-const getElementCode = require('./template');
+const getComponent = require('./getComponent');
+const getNunjucks = require('./getNunjucks');
 const icons = require('../src/data.json');
 
 // rootDir
@@ -14,6 +15,7 @@ const rootDir = path.join(__dirname, '..');
 const srcDir = path.join(rootDir, 'dist');
 const srcDistDir = path.join(rootDir, 'src/dist');
 const iconsDir = path.join(rootDir, 'src/dist/icons');
+const htmlNunjucks = path.join(rootDir, 'dist/Icons.html');
 
 // where index.js code in
 const iconFile = path.join(rootDir, 'src/dist', 'index.js');
@@ -27,9 +29,16 @@ const _api = {
     const location = path.join(rootDir, 'src/svg', `${name}.svg`);
     const code = fs.readFileSync(location);
     const svgCode = await processSvg(code);
-    const element = getElementCode(ComponentName, svgCode);
-    const destination = path.join(rootDir, 'src/dist/icons', `${ComponentName}.js`);
+
+    // svg component
+    const element = getComponent(ComponentName, svgCode);
+    const destination = path.join(iconsDir, `${ComponentName}.js`);
     fs.writeFileSync(destination, element, 'utf-8');
+
+    // svg nunjucks
+    const eleNjks = getNunjucks(ComponentName, svgCode);
+    fs.appendFileSync(htmlNunjucks, eleNjks, 'utf-8');
+
     console.log('Successfully built', ComponentName);
     return ComponentName;
   },
@@ -45,7 +54,9 @@ const _api = {
     if (!fs.existsSync(iconsDir)) {
       fs.mkdirSync(iconsDir);
     }
-
+    if (!fs.existsSync(htmlNunjucks)) {
+      fs.writeFileSync(htmlNunjucks, '', 'utf-8');
+    }
 
     const initialTypeDefinitions = `
 import { SVGAttributes } from 'react';
