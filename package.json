@@ -1,6 +1,6 @@
 {
   "name": "webnovel-icons",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Icon automation workflow with Figma",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -43,14 +43,14 @@
     "@babel/runtime": "^7.11.2"
   },
   "devDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "@babel/cli": "^7.11.5",
     "@babel/core": "^7.11.5",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "cheerio": "^1.0.0-rc.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "svgo": "^1.3.0",
     "uppercamelcase": "^3.0.0"
   }
