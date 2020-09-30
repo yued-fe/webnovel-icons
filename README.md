@@ -17,21 +17,18 @@ import { ISmile } from "webnovel-icons";
 ### in nunjucks
 
 ```HTML
-{% import "node_modules/webnovel-icons/dist/nunjucks/Svg.html" as Svg %}
+{% from "node_modules/webnovel-icons/dist/nunjucks/Svg.html" import Svg, SymbolBox  %}
 {% import "node_modules/webnovel-icons/dist/nunjucks/Symbols.html" as Symbols %}
 
 <body>
-{% call Svg.SymbolBox() -%}
-  {{ Symbols.ISmile() }}
-{%- endcall %}
+  {# 动态 创建 SVG 精灵 #}
+  {{ SymbolBox(Symbols, ['ISmile', 'ISmileOutlined']) }}
 
-
-  
-  <p>{{ Svg.Use('ISmile') }} 16px smile Icon</p>
-  <p>{{ Svg.Use('ISmile', 24) }} 24px smile Icon</p>
+  {# 使用 SVG 精灵 #}
+  <p>{{ Svg('ISmile') }} 16px smile Icon</p>
+  <p>{{ Svg('ISmileOutlined', 24) }} 24px smile Icon</p>
 </body>
 ```
-
 
 ## 开始 / start
 
