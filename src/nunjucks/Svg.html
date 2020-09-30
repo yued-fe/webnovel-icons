@@ -1,11 +1,23 @@
-{% macro SymbolBox() %}
-<svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;">
-  {{ caller() }}
-</svg>
-{% endmacro %}
-
-{% macro Use(id='', size='16', class='', attr='' ) %}
+{% macro Svg(id='', size='16', class='', attr='' ) %}
   {% if id %}
 <svg width="{{ size | safe }}" height="{{ size | safe  }}" {% if class %}class="{{ class | safe }}"{% endif %} {{ attr | safe }}><use xlink:href="#{{ id | safe }}"></use></svg>
   {% endif %}
+{% endmacro %}
+
+{#
+  symbols 表示 symbols 列表
+  symbolNames 表示需要拼接的列表
+#}
+
+{% macro SymbolBox(symbols='', symbolNames='') %}
+<svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;">
+  {% if symbols and symbolNames %}
+    {% for name in symbolNames -%}
+      {{ symbols[name]() }}
+    {%- endfor %}
+  {% endif %}
+  {% if caller %}
+    {{ caller() }}
+  {% endif %}
+</svg>
 {% endmacro %}
