@@ -2,6 +2,37 @@
 
 It's a repository for [Figma Icon Automation Plugin](https://github.com/leadream/figma-icon-automation).
 
+
+## 使用 / use
+
+
+### in react 
+
+```JSX
+import { ISmile } from "webnovel-icons";
+
+<ISmile size="16" />
+```
+
+### in nunjucks
+
+```HTML
+{% import "node_modules/webnovel-icons/dist/nunjucks/Svg.html" as Svg %}
+{% import "node_modules/webnovel-icons/dist/nunjucks/Symbols.html" as Symbols %}
+
+<body>
+{% call Svg.SymbolBox() -%}
+  {{ Symbols.ISmile() }}
+{%- endcall %}
+
+
+  
+  <p>{{ Svg.Use('ISmile') }} 16px smile Icon</p>
+  <p>{{ Svg.Use('ISmile', 24) }} 24px smile Icon</p>
+</body>
+```
+
+
 ## 开始 / start
 
 Open [Figma](https://www.figma.com/file/9xxUNiOfI21DvnVlyfX3aE/%E3%80%90Webnovel%E3%80%91Assets-%2F-Icon?node-id=5%3A0)
