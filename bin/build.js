@@ -5,57 +5,66 @@ const fs = require('fs');
 const upperCamelCase = require('uppercamelcase');
 const processSvg = require('./processSvg');
 const getComponent = require('./getComponent');
-const getNunjucks = require('./getNunjucks');
+const getNjsSymbol = require('./getNjsSymbol');
 const icons = require('../src/data.json');
 
-// rootDir
-const rootDir = path.join(__dirname, '..');
 
-// where icons code in
-const srcDir = path.join(rootDir, 'dist');
-const srcDistDir = path.join(rootDir, 'src/dist');
-const iconsDir = path.join(rootDir, 'src/dist/icons');
-const htmlNunjucks = path.join(rootDir, 'dist/Icons.html');
-
-// where index.js code in
-const iconFile = path.join(rootDir, 'src/dist', 'index.js');
-const iconFileD = path.join(rootDir, 'dist', 'index.d.ts');
+const dirRoot = path.join(__dirname, '..');
+const dirDist = path.join(dirRoot, 'dist');
+const dirDistNjs = path.join(dirDist, 'nunjucks');
+const dirDistSvg = path.join(dirDistNjs, 'Svg.html');
+const dirDistIcons = path.join(dirDistNjs, 'Icons.html');
+const dirDistIndexD = path.join(dirDist, 'index.d.ts');
+const dirSrc = path.join(dirRoot, 'src');
+const dirSrcDist = path.join(dirSrc, 'dist');
+const dirSrcIcons = path.join(dirSrcDist, 'icons');
+const dirSrcSvg = path.join(dirSrc, 'nunjucks/Svg.html');
+const dirSrcIndex = path.join(dirSrcDist, 'index.js');
 
 const _api = {
   // generate icon code separately
   generateIconCode: async ({name}) => {
     const ComponentName = `I${upperCamelCase(name)}`;
     // console.log(names);
-    const location = path.join(rootDir, 'src/svg', `${name}.svg`);
+    const location = path.join(dirRoot, 'src/svg', `${name}.svg`);
     const code = fs.readFileSync(location);
     const [svgComponent, svgCode, attrs] = await processSvg(code);
 
     // svg component
     const element = getComponent(ComponentName, svgComponent, attrs);
-    const destination = path.join(iconsDir, `${ComponentName}.js`);
+    const destination = path.join(dirSrcIcons, `${ComponentName}.js`);
     fs.writeFileSync(destination, element, 'utf-8');
 
     // svg nunjucks
-    const eleNjks = getNunjucks(ComponentName, svgCode, attrs);
-    fs.appendFileSync(htmlNunjucks, eleNjks, 'utf-8');
+    const eleNjs = getNjsSymbol(ComponentName, svgCode, attrs);
+    fs.appendFileSync(dirDistIcons, eleNjs, 'utf-8');
 
     console.log('Successfully built', ComponentName);
     return ComponentName;
   },
   // generate icons.js and icons.d.ts file
   generateIconsIndex: () => {
-    if (!fs.existsSync(srcDir)) {
-      fs.mkdirSync(srcDir);
+    if (!fs.existsSync(dirDist)) {
+      fs.mkdirSync(dirDist);
     }
-    if (!fs.existsSync(srcDistDir)) {
-      fs.mkdirSync(srcDistDir);
+    if (!fs.existsSync(dirSrcDist)) {
+      fs.mkdirSync(dirSrcDist);
     }
 
-    if (!fs.existsSync(iconsDir)) {
-      fs.mkdirSync(iconsDir);
+    if (!fs.existsSync(dirSrcIcons)) {
+      fs.mkdirSync(dirSrcIcons);
     }
-    if (!fs.existsSync(htmlNunjucks)) {
-      fs.writeFileSync(htmlNunjucks, '', 'utf-8');
+
+    if (!fs.existsSync(dirDistNjs)) {
+      fs.mkdirSync(dirDistNjs);
+    }
+
+    if (!fs.existsSync(dirDistIcons)) {
+      fs.writeFileSync(dirDistIcons, '', 'utf-8');
+    }
+
+    if (!fs.existsSync(dirDistSvg)) {
+      fs.copyFileSync(dirSrcSvg, dirDistSvg);
     }
 
     const initialTypeDefinitions = `
@@ -64,8 +73,8 @@ type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
 
 // export icons
 `;
-    fs.writeFileSync(iconFile, '', 'utf-8');
-    fs.writeFileSync(iconFileD, initialTypeDefinitions, 'utf-8');
+    fs.writeFileSync(dirSrcIndex, '', 'utf-8');
+    fs.writeFileSync(dirDistIndexD, initialTypeDefinitions, 'utf-8');
   },
   // append export code to icons.js
   appendToIconsIndex: (ComponentNames = []) => {
@@ -75,8 +84,8 @@ type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
       exportString += `export { default as ${ComponentName} } from './icons/${ComponentName}';\r\n`;
       exportTypeString += `export const ${ComponentName}: Icon;\n`;
     });
-    fs.writeFileSync(iconFile, exportString, 'utf-8');
-    fs.appendFileSync(iconFileD, exportTypeString, 'utf-8');
+    fs.writeFileSync(dirSrcIndex, exportString, 'utf-8');
+    fs.appendFileSync(dirDistIndexD, exportTypeString, 'utf-8');
   },
   getComponentsInfo: async function () {
     const infoComponents = [];

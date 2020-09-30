@@ -1,0 +1,11 @@
+{% macro SymbolBox() %}
+<svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;">
+  {{ caller() }}
+</svg>
+{% endmacro %}
+
+{% macro Use(id='', size='16', class='', attr='' ) %}
+  {% if id %}
+<svg width="{{ size | safe }}" height="{{ size | safe  }}" {% if class %}class="{{ class | safe }}"{% endif %} {{ attr | safe }}><use xlink:href="#{{ id | safe }}"></use></svg>
+  {% endif %}
+{% endmacro %}
