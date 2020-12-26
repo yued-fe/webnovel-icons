@@ -17,30 +17,37 @@ import { ISmile } from "webnovel-icons";
 ### in nunjucks
 
 ```HTML
-{% from "node_modules/webnovel-icons/dist/nunjucks/Svg.html" import Svg, SymbolBox  %}
-{% import "node_modules/webnovel-icons/dist/nunjucks/Symbols.html" as Symbols %}
+{% from "node_modules/webnovel-icons/dist/Svgs.njk" import SvgSpirit, Svg, ISmile, ISmileOutlined %}
 
 <body>
-  {# 动态 创建 SVG 精灵 #}
-  {{ SymbolBox(Symbols, ['ISmile', 'ISmileOutlined']) }}
+    {# 动态 创建 SVG 精灵, 这里不能有引号 #}
+    {{ SvgSpirit([ISmile, ISmileOutlined]) }}
+    
+    {# 或者你也可以添加自定义的 symbol #}
+    {% call Symbols([ISmile, ISmileOutlined]) -%}
+        <symbol id="ICustomSvg" viewBox="0 0 24 24"><path d="M22 18V8h-6V2h-4l-6 8v12h12a4 4 0 004-4zM4 10H2v12h2V10z" fill="#000"></path></symbol>
+    {%- endcall %}
 
-  {# 使用 SVG 精灵 #}
-  <p>{{ Svg('ISmile') }} 16px smile Icon</p>
-  <p>{{ Svg('ISmileOutlined', 24) }} 24px smile Icon</p>
+    {# 使用 SVG 精灵, 这里需要有引号 #}
+    {# Api (id='', size='16', class='', attr='' ) #}
+    <p>{{ Svg('ISmile') }} 16px smile Icon</p>
+    <p>{{ Svg('ISmileOutlined', 24) }} 24px smile Icon</p>
+    <p>{{ Svg('ICustomSvg', 24) }} 24px 自定义图标</p>
 </body>
 ```
 
 如果不想要 SVG 精灵，而是直接输出 SVG 原始 html 字符串可以这样使用。
 
 ```HTML
-{% import "node_modules/webnovel-icons/dist/nunjucks/Symbols.html" as ISmile, ISmileOutlined %}
+{% from "node_modules/webnovel-icons/dist/Svgs.njk" import ISmile, ISmileOutlined %}
+
 <body>
-  {# 使用 SVG 精灵 #}
-  <p><svg width="16" height="16" viewBox="0 0 24 24">{{ ISmile() }}</svg> 16px smile Icon</p>
-  <p><svg width="24" height="24" viewBox="0 0 24 24">{{ ISmile() }}</svg> 24px smile Icon</p>
+  {# 使用 SVG 精灵, 这里的名字不能有引号 #}
+  {# Api (size='16', class='', attr='' ) #}
+  <p>{{ ISmile() }} 16px smile Icon</p>
+  <p>{{ ISmileOutlined(24) }}> 24px smile Icon</p>
 </body>
 ```
-
 
 ## 开始 / start
 

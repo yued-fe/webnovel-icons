@@ -9,24 +9,24 @@ const getNjsSymbol = require('./getNjsSymbol');
 const icons = require('../src/data.json');
 
 
-const dirRoot = path.join(__dirname, '..');
-const dirDist = path.join(dirRoot, 'dist');
-const dirDistNjs = path.join(dirDist, 'nunjucks');
-const dirDistSvg = path.join(dirDistNjs, 'Svg.html');
-const dirDistIcons = path.join(dirDistNjs, 'Symbols.html');
-const dirDistIndexD = path.join(dirDist, 'index.d.ts');
-const dirSrc = path.join(dirRoot, 'src');
-const dirSrcDist = path.join(dirSrc, 'dist');
-const dirSrcIcons = path.join(dirSrcDist, 'icons');
-const dirSrcSvg = path.join(dirSrc, 'nunjucks/Svg.html');
-const dirSrcIndex = path.join(dirSrcDist, 'index.js');
+// 目标文件夹
+const dirDist = path.join(__dirname, '../dist');
+const dirDistSvg = path.join(__dirname, '../dist/Svgs.njk');
+const dirDistIndexD = path.join(__dirname, '../dist/index.d.ts');
+
+// 源文件夹
+const dirSrc = path.join(__dirname, '../src');
+const dirSrcDist = path.join(__dirname, '../src/dist');
+const dirSrcIcons = path.join(__dirname, '../src/dist/icons');
+const dirSrcSvgsNjk = path.join(__dirname, '../src/Svgs.njk');
+const dirSrcIndex = path.join(__dirname, '../src/dist/index.js');
 
 const _api = {
   // generate icon code separately
   generateIconCode: async ({name}) => {
     const ComponentName = `I${upperCamelCase(name)}`;
     // console.log(names);
-    const location = path.join(dirRoot, 'src/svg', `${name}.svg`);
+    const location = path.join(dirSrc, '/svg', `${name}.svg`);
     const code = fs.readFileSync(location);
     const [svgComponent, svgCode, attrs] = await processSvg(code);
 
@@ -37,34 +37,29 @@ const _api = {
 
     // svg nunjucks
     const eleNjs = getNjsSymbol(ComponentName, svgCode, attrs);
-    fs.appendFileSync(dirDistIcons, eleNjs, 'utf-8');
+    fs.appendFileSync(dirDistSvg, eleNjs, 'utf-8');
 
     console.log('Successfully built', ComponentName);
     return ComponentName;
   },
   // generate icons.js and icons.d.ts file
   generateIconsIndex: () => {
+    // 判断 dist 目录是否存在，没有则创建一个
     if (!fs.existsSync(dirDist)) {
       fs.mkdirSync(dirDist);
     }
+    // 判断 src/dist 目录是否存在，没有则创建一个
     if (!fs.existsSync(dirSrcDist)) {
       fs.mkdirSync(dirSrcDist);
     }
-
+    // 判断 src/dist/Icons 目录是否存在，没有则创建一个
     if (!fs.existsSync(dirSrcIcons)) {
       fs.mkdirSync(dirSrcIcons);
     }
 
-    if (!fs.existsSync(dirDistNjs)) {
-      fs.mkdirSync(dirDistNjs);
-    }
-
-    if (!fs.existsSync(dirDistIcons)) {
-      fs.writeFileSync(dirDistIcons, '', 'utf-8');
-    }
-
-    if (!fs.existsSync(dirDistSvg)) {
-      fs.copyFileSync(dirSrcSvg, dirDistSvg);
+    // 拷贝 src/Svgs.njk 到 dist/Svgs.njk
+    if (fs.existsSync(dirSrcSvgsNjk)) {
+      fs.copyFileSync(dirSrcSvgsNjk, dirDistSvg);
     }
 
     const initialTypeDefinitions = `

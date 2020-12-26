@@ -4,16 +4,11 @@
   {% endif %}
 {% endmacro %}
 
-{#
-  symbols 表示 symbols 列表
-  symbolNames 表示需要拼接的列表
-#}
-
-{% macro SymbolBox(symbols='', symbolNames='') %}
+{% macro SvgSpirit(symbols) %}
 <svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;">
-  {% if symbols and symbolNames %}
-    {% for name in symbolNames -%}
-      {{ symbols[name](true) }}
+  {% if symbols %}
+    {% for symbol in symbols -%}
+      {{ symbol(isSvg=false) }}
     {%- endfor %}
   {% endif %}
   {% if caller %}
