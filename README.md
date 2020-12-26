@@ -21,6 +21,7 @@ import { ISmile } from "webnovel-icons";
 
 <body>
     {# 动态 创建 SVG 精灵, 这里不能有引号 #}
+    {# Api ([], class='', attrs='') #}
     {{ SvgSpirit([ISmile, ISmileOutlined]) }}
     
     {# 或者你也可以添加自定义的 symbol #}
