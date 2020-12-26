@@ -13,7 +13,7 @@
 <svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;">
   {% if symbols and symbolNames %}
     {% for name in symbolNames -%}
-      {{ symbols[name]() }}
+      {{ symbols[name](true) }}
     {%- endfor %}
   {% endif %}
   {% if caller %}

@@ -36,8 +36,8 @@ import { ISmile } from "webnovel-icons";
 {% import "node_modules/webnovel-icons/dist/nunjucks/Symbols.html" as ISmile, ISmileOutlined %}
 <body>
   {# 使用 SVG 精灵 #}
-  <p>{{ ISmile(true) }} 16px smile Icon</p>
-  <p>{{ ISmileOutlined(true, 24) }} 24px smile Icon</p>
+  <p><svg width="16" height="16" viewBox="0 0 24 24">{{ ISmile() }}</svg> 16px smile Icon</p>
+  <p><svg width="24" height="24" viewBox="0 0 24 24">{{ ISmile() }}</svg> 24px smile Icon</p>
 </body>
 ```
 
