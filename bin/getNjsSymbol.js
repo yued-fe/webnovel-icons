@@ -7,7 +7,7 @@ const getNjsSymbol = (ComponentName, svgCode, attrs = {}) => {
     <symbol id="${ComponentName}" viewBox="${viewBox}">
   {% endif %}
   ${svgCode}
-  {% if isSvg %}</svg>{% else %}</symbol>{% endif %}>
+  {% if isSvg %}</svg>{% else %}</symbol>{% endif %}
 {% endmacro %}
 `;
 };
