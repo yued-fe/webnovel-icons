@@ -30,6 +30,18 @@ import { ISmile } from "webnovel-icons";
 </body>
 ```
 
+如果不想要 SVG 精灵，而是直接输出 SVG 原始 html 字符串可以这样使用。
+
+```HTML
+{% import "node_modules/webnovel-icons/dist/nunjucks/Symbols.html" as ISmile, ISmileOutlined %}
+<body>
+  {# 使用 SVG 精灵 #}
+  <p>{{ ISmile(true) }} 16px smile Icon</p>
+  <p>{{ ISmileOutlined(true, 24) }} 24px smile Icon</p>
+</body>
+```
+
+
 ## 开始 / start
 
 Open [Figma](https://www.figma.com/file/9xxUNiOfI21DvnVlyfX3aE/%E3%80%90Webnovel%E3%80%91Assets-%2F-Icon?node-id=5%3A0)
