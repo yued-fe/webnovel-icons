@@ -6,6 +6,7 @@ const upperCamelCase = require('uppercamelcase');
 const processSvg = require('./processSvg');
 const getComponent = require('./getComponent');
 const getNjsSymbol = require('./getNjsSymbol');
+const pack = require('./pack');
 const icons = require('../src/data.json');
 
 
@@ -13,6 +14,7 @@ const icons = require('../src/data.json');
 const dirDist = path.join(__dirname, '../dist');
 const dirDistSvg = path.join(__dirname, '../dist/Svgs.njk');
 const dirDistIndexD = path.join(__dirname, '../dist/index.d.ts');
+const dirDistIconJSON = path.join(__dirname, '../dist/icons.json');
 
 // 源文件夹
 const dirSrc = path.join(__dirname, '../src');
@@ -102,6 +104,7 @@ type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
     // create base file icons.js and icons.d.ts
     _api.generateIconsIndex();
     _api.getComponentsInfo().then(_api.appendToIconsIndex);
+    pack(path.join(dirSrc, '/svg'), dirDistIconJSON)
   },
 };
 
