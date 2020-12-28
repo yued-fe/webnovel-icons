@@ -43,7 +43,6 @@ import { ISmile } from "webnovel-icons";
 {% from "node_modules/webnovel-icons/dist/Svgs.njk" import ISmile, ISmileOutlined %}
 
 <body>
-  {# 使用 SVG 精灵, 这里的名字不能有引号 #}
   {# Api (size='16', class='', attr='' ) #}
   <p>{{ ISmile() }} 16px smile Icon</p>
   <p>{{ ISmileOutlined(24) }}> 24px smile Icon</p>
