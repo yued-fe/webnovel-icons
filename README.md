@@ -48,6 +48,11 @@ import { ISmile } from "webnovel-icons";
   <p>{{ ISmileOutlined(24) }}> 24px smile Icon</p>
 </body>
 ```
+### in react native
+
+使用 `webnovel-icons/dist/icons.json` 搭配 [react-native-svg](https://github.com/react-native-svg/react-native-svg) 使用
+
+[demo](http://gitlab.inner.yuewen.local/webnovel/mobile-webnovel-js/-/tree/master/libs/icon)
 
 ## 开始 / start
 
