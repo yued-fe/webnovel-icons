@@ -89,7 +89,8 @@ type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
     const iconKeys = Object.keys(icons).map(key => icons[key]);
     for (const {name} of iconKeys) {
       // ignore the icon with '_' start
-      const isIgnore = name.charAt(0) === '_';
+      // ignore the icon with ':', cause time machine icon with that
+      const isIgnore = (name.charAt(0) === '_') || (name.indexOf(':') > -1 );
       if (!isIgnore) {
         await _api
           .generateIconCode({name})
