@@ -3,8 +3,6 @@ const getComponent = (ComponentName, svgCode, attrs = {}) => {
   return `export default {
   dangerouslySetInnerHTML: { __html: "${svgCode.replace(/\"/g,'\\"')}" },
   viewBox:"${viewBox}",
-  width:"24",
-  height:"24",
   fill:"none"
 };`;
 };

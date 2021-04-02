@@ -71,8 +71,6 @@ type SvgProps = {
   dangerouslySetInnerHTML?: dangerouslySetInnerHTML;
   children?: string;
   viewBox?: string;
-  width?: string | number;
-  height?: string | number;
   fill?: string;
 };
 
