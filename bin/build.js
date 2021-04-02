@@ -30,10 +30,10 @@ const _api = {
     // console.log(names);
     const location = path.join(dirSrc, '/svg', `${name}.svg`);
     const code = fs.readFileSync(location);
-    const [svgComponent, svgCode, attrs] = await processSvg(code);
+    const [svgCode, attrs] = await processSvg(code);
 
     // svg component
-    const element = getComponent(ComponentName, svgComponent, attrs);
+    const element = getComponent(ComponentName, svgCode, attrs);
     const destination = path.join(dirSrcIcons, `${ComponentName}.js`);
     fs.writeFileSync(destination, element, 'utf-8');
 

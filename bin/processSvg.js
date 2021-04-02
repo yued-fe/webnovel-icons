@@ -57,13 +57,7 @@ async function processSvg(svg) {
     // because prettier thinks it's formatting JSX not HTML
     .then(svg => svg.replace(/;/g, ''))
     .then(removeSVGElement)
-    .then(({ele, attrs}) => ([
-        // 这个会把 fill-rule 转换成 fillRule  svg component 需要
-        ele.replace(/([a-z]+)-([a-z]+)=/g, (_, a, b) => `${a}${CamelCase(b)}=`),
-        ele,
-        attrs
-      ]
-    ));
+    .then(({ele, attrs}) => ([ele,attrs]));
   return optimized;
 }
 
