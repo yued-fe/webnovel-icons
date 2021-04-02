@@ -64,9 +64,17 @@ const _api = {
       fs.copyFileSync(dirSrcSvgsNjk, dirDistSvg);
     }
 
-    const initialTypeDefinitions = `
-import { SVGAttributes } from 'react';
-type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
+    const initialTypeDefinitions = `type dangerouslySetInnerHTML = {
+  __html?: string;
+};
+type SvgProps = {
+  dangerouslySetInnerHTML?: dangerouslySetInnerHTML;
+  children?: string;
+  viewBox?: string;
+  width?: string | number;
+  height?: string | number;
+  fill?: string;
+};
 
 // export icons
 `;
@@ -79,7 +87,7 @@ type Icon = (props?: SVGAttributes<SVGElement>) => JSX.Element;
     let exportTypeString = '';
     [...new Set(ComponentNames)].sort().map((ComponentName) => {
       exportString += `export { default as ${ComponentName} } from './icons/${ComponentName}';\r\n`;
-      exportTypeString += `export const ${ComponentName}: Icon;\n`;
+      exportTypeString += `export const ${ComponentName}: SvgProps;\n`;
     });
     fs.writeFileSync(dirSrcIndex, exportString, 'utf-8');
     fs.appendFileSync(dirDistIndexD, exportTypeString, 'utf-8');

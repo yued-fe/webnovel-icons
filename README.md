@@ -3,18 +3,17 @@
 It's a repository for [Figma Icon Automation Plugin](https://github.com/leadream/figma-icon-automation).
 
 
-## 使用 / use
-
-
-### in react 
+## in react 
 
 ```JSX
 import { ISmile } from "webnovel-icons";
 
-<ISmile size="16" />
+function App(){
+    return (<svg {...ISmile} width="16" height="16" />);
+};
 ```
 
-### in nunjucks
+## in nunjucks
 
 ```HTML
 {% from "node_modules/webnovel-icons/dist/Svgs.njk" import SvgSpirit, Svg, ISmile, ISmileOutlined %}
@@ -48,7 +47,7 @@ import { ISmile } from "webnovel-icons";
   <p>{{ ISmileOutlined(24) }}> 24px smile Icon</p>
 </body>
 ```
-### in react native
+## in react native
 
 使用 `webnovel-icons/dist/icons.json` 搭配 [react-native-svg](https://github.com/react-native-svg/react-native-svg) 使用
 
@@ -93,7 +92,6 @@ Open [Figma](https://www.figma.com/file/9xxUNiOfI21DvnVlyfX3aE/%E3%80%90Webnovel
 
 1. 点击 `here` 
 2. 再点击 `Squash and merge`。
-
 
 ## 查看效果 / Preview
 
